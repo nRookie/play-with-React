@@ -1,3 +1,4 @@
+
 import logo from './logo.svg';
 import './App.css';
 
@@ -7,20 +8,14 @@ function App() {
       <header className="App-header">
         <h1>我的看板</h1>
         <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
       </header>
+      <main className="kanban-board">
+        <section className="kanban-column"></section>
+        <section className="kanban-column"></section>
+        <section className="kanban-column"></section>
+      </main>
     </div>
-  );
-}
+      );
+    }
 
 export default App;
