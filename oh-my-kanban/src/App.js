@@ -30,6 +30,17 @@ const KanbanCard = ({ title, status}) => {
 };
 
 
+const KanbanNewCard = () => {
+  return (
+    <li className="kanban-card">
+      <h3>添加新卡片</h3>
+      <div className="card-title">
+        <input type="text" />
+      </div>
+    </li>
+  );
+};
+
 function App() {
   return (
     <div className="App">
@@ -39,35 +50,25 @@ function App() {
       </header>
       <main className="kanban-board">
         <section className="kanban-column column-todo">
-          <h2>待处理</h2>
-          {
-            new Array(10).fill('').map(item => (
-              <li className="kanban-card">
-                <div className="card-title">开发任务-1</div>
-                <div className="card-status">22-05-22 18:15</div>
-              </li>
-            ))
-          }
+          <h2>待处理</h2><button>&#8853; 添加新卡片</button>
           <ul>
-            <li className="kanban-card">
-              <div className="card-title">开发任务-1</div>
-              <div className="card-status">22-05-22 18:15</div>
-            </li>
-            <li className="kanban-card">
-              <div className="card-title">开发任务-2</div>
-              <div className="card-status">22-05-22 18:15</div>
-            </li>
-            <li className="kanban-card">
-              <div className="card-title">开发任务-3</div>
-              <div className="card-status">22-05-22 18:15</div> 
-            </li>
+            <KanbanNewCard />
+          {
+            todoList.map(props => <KanbanCard {...props} />)
+          }
           </ul>
         </section>
         <section className="kanban-column column-ongoing">
           <h2>进行中</h2>
+          <ul>
+            {ongoingList.map(props => <KanbanCard {...props} /> )}
+          </ul>
         </section>
         <section className="kanban-column column-done">
           <h2>已完成</h2>
+          <ul>
+            {doneList.map(props => <KanbanCard {... props} />)}
+          </ul>
         </section>
       </main>
     </div>
