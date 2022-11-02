@@ -2,16 +2,6 @@ import React, {useState} from 'react';
 import logo from './logo.svg';
 import './App.css';
 
-const ongoingList = [
-  { title: '开发任务-4', status: '22-05-22 18:15' },
-  { title: '开发任务-6', status: '22-05-22 18:15' },
-  { title: '测试任务-2', status: '22-05-22 18:15' }
-];
-
-const doneList = [
-  { title: '开发任务-2', status: '22-05-22 18:15' },
-  { title: '测试任务-1', status: '22-05-22 18:15' }
-];
 
 const KanbanCard = ({ title, status}) => {
   return (
@@ -53,20 +43,33 @@ function App() {
     { title: '开发任务-5', status: '22-05-22 18:15' },
     { title: '测试任务-3', status: '22-05-22 18:15' }
   ]);
-
   const handleAdd = (evt) => {
     setShowAdd(true);
   };
-
-
   const handleSubmit = (title) => {
     setTodoList(currentTodoList => [
       { title, status: new Date().toDateString()},
       ...currentTodoList
     ]);
-    // setShowAdd(false)
+    setOngoingList(currentOngoingList => [
+      { title, status: new Date().toDateString()},
+      ...currentOngoingList
+    ]);
+    setDoneList(currentDoneList => [
+      { title, status: new Date().toDateString()},
+      ...currentDoneList
+    ]);
   };
 
+  const [ongoingList, setOngoingList] = useState ( [
+    { title: '开发任务-4', status: '22-05-22 18:15' },
+    { title: '开发任务-6', status: '22-05-22 18:15' },
+    { title: '测试任务-2', status: '22-05-22 18:15' }
+  ]);
+  const [doneList, setDoneList] = useState ( [
+    { title: '开发任务-2', status: '22-05-22 18:15' },
+    { title: '测试任务-1', status: '22-05-22 18:15' }
+  ]);
 
   return (
     <div className="App">
