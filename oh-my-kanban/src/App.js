@@ -2,6 +2,34 @@
 import logo from './logo.svg';
 import './App.css';
 
+const todoList = [
+  {title: '开发任务-1', status: '22-05-22 18:15'},
+  {title: '开发任务-2', status: '22-05-22 18:15'},
+  {title: '开发任务-3', status: '22-05-22 18:15'},
+  {title: '开发任务-4', status: '22-05-22 18:15'}
+];
+
+const ongoingList = [
+  { title: '开发任务-4', status: '22-05-22 18:15' },
+  { title: '开发任务-6', status: '22-05-22 18:15' },
+  { title: '测试任务-2', status: '22-05-22 18:15' }
+];
+
+const doneList = [
+  { title: '开发任务-2', status: '22-05-22 18:15' },
+  { title: '测试任务-1', status: '22-05-22 18:15' }
+];
+
+const KanbanCard = ({ title, status}) => {
+  return (
+    <li className="kanban-card">
+      <div className="card-title">{title}</div>
+      <div className="card-status">{status}</div>
+    </li>
+  );
+};
+
+
 function App() {
   return (
     <div className="App">
