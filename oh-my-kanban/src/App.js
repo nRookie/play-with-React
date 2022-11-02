@@ -12,6 +12,14 @@ function App() {
       <main className="kanban-board">
         <section className="kanban-column column-todo">
           <h2>待处理</h2>
+          {
+            new Array(10).fill('').map(item => (
+              <li className="kanban-card">
+                <div className="card-title">开发任务-1</div>
+                <div className="card-status">22-05-22 18:15</div>
+              </li>
+            ))
+          }
           <ul>
             <li className="kanban-card">
               <div className="card-title">开发任务-1</div>
