@@ -17,6 +17,14 @@ function App() {
               <div className="card-title">开发任务-1</div>
               <div className="card-status">22-05-22 18:15</div>
             </li>
+            <li className="kanban-card">
+              <div className="card-title">开发任务-2</div>
+              <div className="card-status">22-05-22 18:15</div>
+            </li>
+            <li className="kanban-card">
+              <div className="card-title">开发任务-3</div>
+              <div className="card-status">22-05-22 18:15</div> 
+            </li>
           </ul>
         </section>
         <section className="kanban-column column-ongoing">
