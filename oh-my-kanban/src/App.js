@@ -4,6 +4,11 @@ import logo from './logo.svg';
 import './App.css';
 import {css} from '@emotion/react';
 
+const COLUMN_BG_COLORS = {
+  todo: '#C9AF97',
+  ongoing: '#FFE799',
+  done: '#C0E88A'
+};
 
 const kanbanCardStyles = css`
   margin-bottom: 1rem;
@@ -47,14 +52,15 @@ const KanbanBoard = ({ children}) => (
   `}>{children}</main>
 )
 
-const KanbanColumn = ( { children, className, title }) => {
+const KanbanColumn = ( { children, bgColor, title }) => {
   return (
-    <section className={className} css={css`
+    <section css={css`
       flex: 1 1 ;
       display: flex;
       flex-direction: column;
       border: 1px solid gray;
       border-radius: 1rem;
+      background-color: ${bgColor};
 
       & > h2 {
         margin: 0.6rem 1rem;
@@ -159,17 +165,17 @@ function App() {
         <img src={logo} className="App-logo" alt="logo" />
       </header>
       <KanbanBoard>
-        <KanbanColumn className="column-todo" title={<>
+        <KanbanColumn bgColor={COLUMN_BG_COLORS.todo} title={<>
   "待处理"<button onClick={handleAdd} 
   disabled={showAdd}>&#8853; 添加新卡片</button>
   </>}>
             { showAdd && <KanbanNewCard onSubmit={handleSubmit} />  }
             { todoList.map(props => <KanbanCard key={props.title} {...props} />)}
         </KanbanColumn>
-        <KanbanColumn className="column-ongoing" title="进行中">
+        <KanbanColumn bgColor={COLUMN_BG_COLORS.ongoing}  title="进行中">
           {ongoingList.map(props => <KanbanCard key={props.title} {...props} />)}
         </KanbanColumn>
-        <KanbanColumn className="column-done" title="已完成">
+        <KanbanColumn bgColor={COLUMN_BG_COLORS.done}  title="已完成">
           {doneList.map(props => <KanbanCard key={props.title} {...props} />)}
         </KanbanColumn>
       </KanbanBoard>
