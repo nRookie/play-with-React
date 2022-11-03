@@ -5,12 +5,29 @@ import './App.css';
 import {css} from '@emotion/react';
 
 
+const kanbanCardStyles = css`
+  margin-bottom: 1rem;
+  padding: 0.6rem 1rem;
+  border: 1px solid gray;
+  border-radius: 1rem;
+  list-style: none;
+  background-color: rgba(255, 255, 255, 0.4);
+  text-align: left;
+`;
+const kanbancardTitleStyles = css`
+  min-height: 3rem;
+`;
+
 
 const KanbanCard = ({ title, status}) => {
   return (
-    <li className="kanban-card">
-      <div className="card-title">{title}</div>
-      <div className="card-status">{status}</div>
+    <li className={kanbanCardStyles}>
+      <div css={kanbancardTitleStyles}>{title}</div>
+      <div css={css`
+      text-align: right;
+      font-size: 0.8rem;
+      color: #333;
+      `} >{status}</div>
     </li>
   );
 };
@@ -79,8 +96,14 @@ const KanbanNewCard = ({onSubmit}) => {
   };
   return (
     <li className="kanban-card">
+      <li css={kanbanCardStyles}></li>
       <h3>添加新卡片</h3>
-      <div className="card-title">
+      <div css={css`
+        ${kanbancardTitleStyles}
+        & > input[type="text"] {
+          width: 80%;
+        }
+      `}>
         <input type="text" value={title}
           onChange={handleChange} onKeyDown={handleKeyDown} />
       </div>
