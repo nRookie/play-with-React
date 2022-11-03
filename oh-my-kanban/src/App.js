@@ -17,11 +17,12 @@ const KanbanBoard = ({ children}) => (
   <main className="kanban-board">{children}</main>
 )
 
-const KanbanColumn = ( { children, className}) => {
+const KanbanColumn = ( { children, className, title }) => {
   const combinedClassName = `kanban-column ${className}`;
   return (
     <section className={combinedClassName}>
-      {children}
+      <h2>{title}</h2>
+      <ul>{children}</ul>
     </section>
   )
 }
@@ -94,24 +95,17 @@ function App() {
         <img src={logo} className="App-logo" alt="logo" />
       </header>
       <KanbanBoard>
-        <KanbanColumn className="column-todo">
-          <h2>待处理<button onClick={handleAdd} 
-            disabled={showAdd}>&#8853; 添加新卡片</button></h2>
-          <ul>
-            { showAdd && <KanbanNewCard onSubmit={handleSubmit} />   }
+        <KanbanColumn className="column-todo" title="待处理">
+          <button onClick={handleAdd} 
+            disabled={showAdd}>&#8853; 添加新卡片</button>
+            { showAdd && <KanbanNewCard onSubmit={handleSubmit} />  }
             { todoList.map(props => <KanbanCard {...props} />)}
-          </ul>
         </KanbanColumn>
-        <KanbanColumn className="kanban-column column-ongoing">
-          <h2>进行中</h2>
-          <ul>
-            {ongoingList.map(props => <KanbanCard {...props} /> )}
-          </ul>
+        <KanbanColumn className="column-ongoing" title="进行中">
+          {ongoingList.map(props => <KanbanCard {...props} /> )}
         </KanbanColumn>
-        <KanbanColumn className="kanban-column column-done">
-          <ul>
-            {doneList.map(props => <KanbanCard {... props} />)}
-          </ul>
+        <KanbanColumn className="column-done" title="已完成">
+          {doneList.map(props => <KanbanCard {... props} />)}
         </KanbanColumn>
       </KanbanBoard>
     </div>
