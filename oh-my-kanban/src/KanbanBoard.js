@@ -11,10 +11,10 @@ const COLUMN_BG_COLORS = {
   done: '#C0E88A'
 };
 
-const DATA_STORE_KEY = 'kanban-data-store';
-const COLUMN_KEY_TODO = 'todo';
-const COLUMN_KEY_ONGOING = 'ongoing';
-const COLUMN_KEY_DONE ='done';
+
+export const COLUMN_KEY_TODO = 'todo';
+export const COLUMN_KEY_ONGOING = 'ongoing';
+export const COLUMN_KEY_DONE ='done';
 
 const kanbanBoardStyles = css`
     flex : 10;

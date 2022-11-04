@@ -40,17 +40,6 @@ function App() {
     { title: '开发任务-5', status: '22-05-22 18:15' },
     { title: '测试任务-3', status: '22-05-22 18:15' }
   ]);
-  
-  const handleAdd = (column, newCard) => {
-    updaters[column]((currentStat) => [newCard, ...current]);
-  };
-
-  const handleRemove = (column, cardToRemove) => {
-    updaters[column]((currentStat) => {
-        currentStat.filter((item) => !Object.is(item, cardToRemove))
-    })
-  };
-
 
   const [ongoingList, setOngoingList] = useState ( [
     { title: '开发任务-4', status: '2022-05-22 18:15' },
@@ -61,9 +50,26 @@ function App() {
     { title: '开发任务-2', status: '2022-05-22 18:15' },
     { title: '测试任务-1', status: '2022-05-22 18:15' }
   ]);
-
-
   const [isLoading, setIsLoading] = useState(true);
+  
+  const updaters = {
+    [COLUMN_KEY_TODO]: setTodoList,
+    [COLUMN_KEY_ONGOING]: setOngoingList,
+    [COLUMN_KEY_DONE] : setDoneList,
+  }
+
+
+
+  const handleAdd = (column, newCard) => {
+    updaters[column]((currentStat) => [newCard, ...currentStat]);
+  };
+
+  const handleRemove = (column, cardToRemove) => {
+    updaters[column]((currentStat) => 
+        currentStat.filter((item) => !Object.is(item, cardToRemove))
+    );
+  };
+
   useEffect(() => {
     const data = window.localStorage.getItem(DATA_STORE_KEY);
     setTimeout(() => { 
@@ -76,13 +82,6 @@ function App() {
       setIsLoading(false);
     }, 1000);
   }, []);
-
-
-  const updaters = {
-    [COLUMN_KEY_TODO]: setTodoList,
-    [COLUMN_KEY_ONGOING]: setOngoingList,
-    [COLUMN_KEY_DONE] : setDoneList,
-  }
 
 
   const handleSaveAll = () => {
@@ -114,4 +113,3 @@ function App() {
 };
 
 export default App;
-
