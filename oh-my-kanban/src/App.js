@@ -159,30 +159,20 @@ function App() {
           </KanbanColumn>
 
         <KanbanColumn bgColor={COLUMN_BG_COLORS.ongoing}  title="进行中"
+            setDraggedItem={setDraggedItem}
             setIsDragSource={(isSrc) => setDragSource(isSrc ? COLUMN_KEY_ONGOING : null)}
             setIsDragTarget={(isTgt) => setDragTarget(isTgt ? COLUMN_KEY_ONGOING : null)}
             onDrop={handleDrop}
+            cardList={ongoingList}
         >
-          {ongoingList.map(props => (
-            <KanbanCard 
-              key={props.title} 
-              onDragStart={() => setDraggedItem(props)}
-              {...props} 
-              />
-          ))}
         </KanbanColumn>
         <KanbanColumn bgColor={COLUMN_BG_COLORS.done}  title="已完成"
+            setDraggedItem={setDraggedItem}
             setIsDragSource={(isSrc) => setDragSource(isSrc ? COLUMN_KEY_DONE : null)}
             setIsDragTarget={(isTgt) => setDragTarget(isTgt ? COLUMN_KEY_DONE : null)}
             onDrop={handleDrop}
+            cardList={doneList}
         >
-          { doneList.map(props => ( 
-              <KanbanCard 
-                key={props.title} 
-                onDragStart={() => setDraggedItem(props)}
-                {...props} 
-              />
-          ))}
         </KanbanColumn>
         </>)
         }
