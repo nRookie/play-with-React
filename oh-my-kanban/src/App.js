@@ -48,18 +48,10 @@ function App() {
     { title: '开发任务-5', status: '22-05-22 18:15' },
     { title: '测试任务-3', status: '22-05-22 18:15' }
   ]);
-  const handleSubmit = (title) => {
+  const handleAdd = (newCard) => {
     setTodoList(currentTodoList => [
-      { title, status: new Date().toDateString()},
+      newCard,
       ...currentTodoList
-    ]);
-    setOngoingList(currentOngoingList => [
-      { title, status: new Date().toDateString()},
-      ...currentOngoingList
-    ]);
-    setDoneList(currentDoneList => [
-      { title, status: new Date().toDateString()},
-      ...currentDoneList
     ]);
   };
 
@@ -146,7 +138,7 @@ function App() {
             setIsDragTarget={(isTgt) => setDragTarget(isTgt ? COLUMN_KEY_TODO : null)}
             onDrop={handleDrop}
             cardList={todoList}
-            onAdd={handleSubmit}
+            onAdd={handleAdd}
           >
           </KanbanColumn>
 
