@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import React, { useState, useRef, useEffect } from 'react';
 import { css } from '@emotion/react';
-import { kanbanCardStyles, kanbancardTitleStyles } from './App';
+import { kanbanCardStyles, kanbanCardTitleStyles } from './App';
 
 export default function KanbanNewCard({ onSubmit }) {
   const [title, setTitle] = useState('');
@@ -25,7 +25,7 @@ export default function KanbanNewCard({ onSubmit }) {
     <li css={kanbanCardStyles}>
       <h3>添加新卡片</h3>
       <div css={css`
-        ${kanbancardTitleStyles}
+        ${kanbanCardTitleStyles}
         & > input[type="text"] {
           width: 80%;
         }

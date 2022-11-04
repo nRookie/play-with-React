@@ -3,6 +3,8 @@ import React, {useState, useEffect} from 'react';
 import logo from './logo.svg';
 import './App.css';
 import {css} from '@emotion/react';
+import AdminContext from './AdminContext';
+
 import KanbanBoard, { 
   COLUMN_KEY_DONE,
   COLUMN_KEY_ONGOING,
@@ -22,7 +24,7 @@ export const kanbanCardStyles = css`
     box-shadow: 0 0.2rem 0.2rem rgba(0, 0, 0, 0.2), inset 0 1px #fff;
   }
 `;
-export const kanbancardTitleStyles = css`
+export const kanbanCardTitleStyles = css`
   min-height: 3rem;
 `;
 
@@ -51,7 +53,7 @@ function App() {
     { title: '测试任务-1', status: '2022-05-22 18:15' }
   ]);
   const [isLoading, setIsLoading] = useState(true);
-  
+
   const updaters = {
     [COLUMN_KEY_TODO]: setTodoList,
     [COLUMN_KEY_ONGOING]: setOngoingList,
@@ -64,10 +66,10 @@ function App() {
     updaters[column]((currentStat) => [newCard, ...currentStat]);
   };
 
-  const handleRemove = (column, cardToRemove) => {
+  const handleRemove = (column, cardToRemove) => { 
     updaters[column]((currentStat) => 
-        currentStat.filter((item) => !Object.is(item, cardToRemove))
-    );
+    currentStat.filter((item) => item.title !== cardToRemove.title) 
+    ); 
   };
 
   useEffect(() => {
@@ -94,20 +96,33 @@ function App() {
   }
 
 
+  const [isAdmin, setIsAdmin] = useState(false); 
+  const handleToggleAdmin = (evt) => { 
+    setIsAdmin(!isAdmin); 
+   };
+
   return (
     <div className="App">
       <header className="App-header">
-        <h1>我的看板 <button onClick={handleSaveAll}>保存所有卡片</button></h1>
+        <h1>我的看板 
+          <button onClick={handleSaveAll}>保存所有卡片</button>
+          <label>
+            <input type="checkbox" value={isAdmin} onChange={handleToggleAdmin} ></input>
+            管理员模式
+          </label>
+        </h1>
         <img src={logo} className="App-logo" alt="logo" />
       </header>
-      <KanbanBoard
-        isLoading={isLoading}
-        todoList={todoList}
-        ongoingList={ongoingList}
-        doneList={doneList}
-        onAdd={handleAdd}
-        onDrop={handleRemove}
-        />
+      <AdminContext.Provider value={isAdmin}>
+        <KanbanBoard
+          isLoading={isLoading}
+          todoList={todoList}
+          ongoingList={ongoingList}
+          doneList={doneList}
+          onAdd={handleAdd}
+          onRemove={handleRemove}
+          />
+      </AdminContext.Provider>
     </div>
     );
 };

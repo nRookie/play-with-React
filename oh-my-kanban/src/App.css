@@ -36,6 +36,17 @@
   color: #61dafb;
 }
 
+
+.App-header > h1 > * {
+  margin-left: 1rem;
+}
+
+.App-header > h1 > label {
+  font-size: initial;
+  font-weight: initial;
+}
+
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

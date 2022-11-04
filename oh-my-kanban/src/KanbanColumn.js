@@ -14,6 +14,7 @@ export default function KanbanColumn({
   setIsDragTarget = () => { }, 
   cardList = [],
   onDrop,
+  onRemove,
   setDraggedItem,
 }) {
 
@@ -99,6 +100,7 @@ export default function KanbanColumn({
           <KanbanCard
             key={props.title}
             onDragStart={() => setDraggedItem && setDraggedItem(props)}
+            onRemove={onRemove}
             {...props}
             />
         ))}
