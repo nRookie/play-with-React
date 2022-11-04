@@ -149,18 +149,13 @@ function App() {
             "待处理"<button onClick={handleAdd} 
             disabled={showAdd}>&#8853; 添加新卡片</button>
           </>}
+            setDraggedItem={setDraggedItem}
             setIsDragSource={(isSrc) => setDragSource(isSrc ? COLUMN_KEY_TODO : null)}
             setIsDragTarget={(isTgt) => setDragTarget(isTgt ? COLUMN_KEY_TODO : null)}
             onDrop={handleDrop}
+            cardList={todoList}
           >
             { showAdd && <KanbanNewCard onSubmit={handleSubmit} />  }
-            { todoList.map(props => ( 
-              <KanbanCard 
-                key={props.title} 
-                onDragStart={() => setDraggedItem(props)}
-                {...props} 
-              />
-            ))}
           </KanbanColumn>
 
         <KanbanColumn bgColor={COLUMN_BG_COLORS.ongoing}  title="进行中"
