@@ -3,7 +3,11 @@ import React, {useState, useEffect} from 'react';
 import logo from './logo.svg';
 import './App.css';
 import {css} from '@emotion/react';
-import KanbanBoard from './KanbanBoard';
+import KanbanBoard, { 
+  COLUMN_KEY_DONE,
+  COLUMN_KEY_ONGOING,
+  COLUMN_KEY_TODO,
+} from './KanbanBoard';
 
 export const kanbanCardStyles = css`
   margin-bottom: 1rem;
@@ -36,13 +40,16 @@ function App() {
     { title: '开发任务-5', status: '22-05-22 18:15' },
     { title: '测试任务-3', status: '22-05-22 18:15' }
   ]);
-  const handleAdd = (newCard) => {
-    setTodoList(currentTodoList => [
-      newCard,
-      ...currentTodoList
-    ]);
+  
+  const handleAdd = (column, newCard) => {
+    updaters[column]((currentStat) => [newCard, ...current]);
   };
 
+  const handleRemove = (column, cardToRemove) => {
+    updaters[column]((currentStat) => {
+        currentStat.filter((item) => !Object.is(item, cardToRemove))
+    })
+  };
 
 
   const [ongoingList, setOngoingList] = useState ( [
@@ -71,6 +78,13 @@ function App() {
   }, []);
 
 
+  const updaters = {
+    [COLUMN_KEY_TODO]: setTodoList,
+    [COLUMN_KEY_ONGOING]: setOngoingList,
+    [COLUMN_KEY_DONE] : setDoneList,
+  }
+
+
   const handleSaveAll = () => {
     const data = JSON.stringify({
       todoList,
@@ -93,7 +107,7 @@ function App() {
         ongoingList={ongoingList}
         doneList={doneList}
         onAdd={handleAdd}
-        onDrop={(evt) => {}}
+        onDrop={handleRemove}
         />
     </div>
     );

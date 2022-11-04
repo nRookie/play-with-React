@@ -29,11 +29,20 @@ export default function KanbanBoard({
    ongoingList,
    doneList,
    onAdd,
-   onDrop
+   onRemove
 }) {
     const [draggedItem, setDraggedItem] = useState(null);
     const [dragSource, setDragSource] = useState(null); 
     const [dragTarget, setDragTarget] = useState(null);
+
+    const handleDrop = (evt) => {
+      if (!draggedItem || !dragSource || !dragTarget || dragSource === dragTarget) {
+        return ;
+      }
+      dragSource && onRemove(dragSource, draggedItem);
+      dragTarget && onAdd(dragTarget, draggedItem);
+    };
+
   return (
   <main css={kanbanBoardStyles}> {isLoading ? (
     <KanbanColumn title="读取中..." bgColor={COLUMN_BG_COLORS.loading}></KanbanColumn>
@@ -45,9 +54,9 @@ export default function KanbanBoard({
       setDraggedItem={setDraggedItem}
       setIsDragSource={(isSrc) => setDragSource(isSrc ? COLUMN_KEY_TODO : null)}
       setIsDragTarget={(isTgt) => setDragTarget(isTgt ? COLUMN_KEY_TODO : null)}
-      onDrop={onDrop}
+      onDrop={handleDrop}
       cardList={todoList}
-      onAdd={onAdd}
+      onAdd={onAdd.bind(null, COLUMN_KEY_TODO)}
     >
     </KanbanColumn>
 
@@ -55,7 +64,7 @@ export default function KanbanBoard({
         setDraggedItem={setDraggedItem}
         setIsDragSource={(isSrc) => setDragSource(isSrc ? COLUMN_KEY_ONGOING : null)}
         setIsDragTarget={(isTgt) => setDragTarget(isTgt ? COLUMN_KEY_ONGOING : null)}
-        onDrop={onDrop}
+        onDrop={handleDrop}
         cardList={ongoingList}
     >
     </KanbanColumn>
@@ -63,7 +72,7 @@ export default function KanbanBoard({
         setDraggedItem={setDraggedItem}
         setIsDragSource={(isSrc) => setDragSource(isSrc ? COLUMN_KEY_DONE : null)}
         setIsDragTarget={(isTgt) => setDragTarget(isTgt ? COLUMN_KEY_DONE : null)}
-        onDrop={onDrop}
+        onDrop={handleDrop}
         cardList={doneList}
     >
     </KanbanColumn>
