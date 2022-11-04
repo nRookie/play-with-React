@@ -74,6 +74,7 @@ export default function KanbanBoard({
         setIsDragTarget={(isTgt) => setDragTarget(isTgt ? COLUMN_KEY_DONE : null)}
         onDrop={handleDrop}
         cardList={doneList}
+        onRemove={onRemove.bind(null, COLUMN_KEY_DONE)}
     >
     </KanbanColumn>
   </>)}
