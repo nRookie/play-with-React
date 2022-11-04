@@ -96,3 +96,8 @@ const Component = ({a, b}) => {
 而上面的函数组件， 每次在渲染阶段都会被执行，如果返回的元素树经过协调引擎比对后，
 与前一次的没有差异， 则在提交阶段不会更新对应的真实DOM。
 
+
+
+
+立刻上手为 oh-my-kanban 项目加入远程数据的存取。为了简化实现，我们会使用浏览器内置的 localStorage 本地存储 API 代替远程服务。同样，为了简化逻辑，我们会利用 JSON.stringify 和 JSON.parse 序列化和反序列化看板列数据，直接读写localStorage 中的单一 key。
+

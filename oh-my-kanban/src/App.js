@@ -150,6 +150,8 @@ const KanbanNewCard = ({onSubmit}) => {
   );
 };
 
+const DATA_STORE_KEY = 'kanban-data-store';
+
 function App() {
   const [showAdd, setShowAdd] = useState(false);
 
@@ -188,10 +190,33 @@ function App() {
     { title: '测试任务-1', status: '2022-05-22 18:15' }
   ]);
 
+
+  useEffect(() => {
+    const data = window.localStorage.getItem(DATA_STORE_KEY);
+    setTimeout(() => { 
+      if (data) {
+        const kanbanColumnData = JSON.parse(data);
+        setTodoList(kanbanColumnData.todoList);
+        setOngoingList(kanbanColumnData.ongoingList);
+        setDoneList(kanbanColumnData.doneList);
+      }
+
+    }, 1000);
+  }, []);
+
+
+  const handleSaveAll = () => {
+    const data = JSON.stringify({
+      todoList,
+      ongoingList,
+      doneList
+    });
+    window.localStorage.setItem(DATA_STORE_KEY, data);
+  }
   return (
     <div className="App">
       <header className="App-header">
-        <h1>我的看板</h1>
+        <h1>我的看板 <button onClick={handleSaveAll}>保存所有卡片</button></h1>
         <img src={logo} className="App-logo" alt="logo" />
       </header>
       <KanbanBoard>
