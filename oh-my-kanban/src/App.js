@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import logo from './logo.svg';
 import './App.css';
 import {css} from '@emotion/react';
@@ -27,16 +27,40 @@ const kanbancardTitleStyles = css`
   min-height: 3rem;
 `;
 
+const MINUTE = 60 * 1000;
+const HOUR = 60 * MINUTE;
+const DAY = 24 * HOUR;
+const UPDATE_INTERVAL = MINUTE;
 
 const KanbanCard = ({ title, status}) => {
+
+  const [displayTime, setDisplayTime] = useState(status);
+  useEffect(() => {
+    const updateDisplayTime = () => {
+      const timePassed = new Date() - new Date(status);
+      let relativeTime = '刚刚';
+      if (MINUTE <= timePassed && timePassed < HOUR) {
+        relativeTime = `${Math.ceil(timePassed / MINUTE)} 分钟前`;
+      } else if (HOUR <= timePassed && timePassed < DAY) {
+        relativeTime = `${Math.ceil(timePassed / HOUR)} 小时前`;
+      } else if (DAY <= timePassed) {
+        relativeTime = `${Math.ceil(timePassed / DAY)} 天前`
+      }
+      setDisplayTime(relativeTime);
+    }
+    const intervalId = setInterval(updateDisplayTime, UPDATE_INTERVAL);
+    updateDisplayTime();
+  
+    return function cleanup() {
+      clearInterval(intervalId);
+    }
+  }, [status])
+
+
   return (
     <li css={kanbanCardStyles}>
       <div css={kanbancardTitleStyles}>{title}</div>
-      <div css={css`
-      text-align: right;
-      font-size: 0.8rem;
-      color: #333;
-      `} >{status}</div>
+      <div css={css`/*省略*/`} title={status}>{displayTime}</div>
     </li>
   );
 };
@@ -149,13 +173,13 @@ function App() {
   };
 
   const [ongoingList, setOngoingList] = useState ( [
-    { title: '开发任务-4', status: '22-05-22 18:15' },
-    { title: '开发任务-6', status: '22-05-22 18:15' },
-    { title: '测试任务-2', status: '22-05-22 18:15' }
+    { title: '开发任务-4', status: '2022-05-22 18:15' },
+    { title: '开发任务-6', status: '2022-05-22 18:15' },
+    { title: '测试任务-2', status: '2022-05-22 18:15' }
   ]);
   const [doneList, setDoneList] = useState ( [
-    { title: '开发任务-2', status: '22-05-22 18:15' },
-    { title: '测试任务-1', status: '22-05-22 18:15' }
+    { title: '开发任务-2', status: '2022-05-22 18:15' },
+    { title: '测试任务-1', status: '2022-05-22 18:15' }
   ]);
 
   return (
