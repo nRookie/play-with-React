@@ -5,8 +5,6 @@ import './App.css';
 import {css} from '@emotion/react';
 import KanbanBoard from './KanbanBoard';
 import KanbanColumn from './KanbanColumn';
-import KanbanNewCard from './KanbanNewCard';
-import KanbanCard from './KanbanCard';
 
 const COLUMN_BG_COLORS = {
   loading: '#E3E3E3',
@@ -44,17 +42,12 @@ const COLUMN_KEY_DONE ='done';
 
 
 function App() {
-  const [showAdd, setShowAdd] = useState(false);
-
   const [todoList, setTodoList] = useState ( [
     {title: '开发任务-1', status: '22-05-22 18:15' },
     { title: '开发任务-3', status: '22-05-22 18:15' }, 
     { title: '开发任务-5', status: '22-05-22 18:15' },
     { title: '测试任务-3', status: '22-05-22 18:15' }
   ]);
-  const handleAdd = (evt) => {
-    setShowAdd(true);
-  };
   const handleSubmit = (title) => {
     setTodoList(currentTodoList => [
       { title, status: new Date().toDateString()},
@@ -68,7 +61,6 @@ function App() {
       { title, status: new Date().toDateString()},
       ...currentDoneList
     ]);
-    setShowAdd(false);
   };
 
   const [draggedItem, setDraggedItem] = useState(null);
@@ -145,17 +137,17 @@ function App() {
         {isLoading ? (
             <KanbanColumn title="读取中..." bgColor={COLUMN_BG_COLORS.loading}></KanbanColumn>
         ) :(<>   
-          <KanbanColumn bgColor={COLUMN_BG_COLORS.todo} title={<>
-            "待处理"<button onClick={handleAdd} 
-            disabled={showAdd}>&#8853; 添加新卡片</button>
-          </>}
+          <KanbanColumn 
+            bgColor={COLUMN_BG_COLORS.todo} 
+            canAddNew
+            title="待处理"
             setDraggedItem={setDraggedItem}
             setIsDragSource={(isSrc) => setDragSource(isSrc ? COLUMN_KEY_TODO : null)}
             setIsDragTarget={(isTgt) => setDragTarget(isTgt ? COLUMN_KEY_TODO : null)}
             onDrop={handleDrop}
             cardList={todoList}
+            onAdd={handleSubmit}
           >
-            { showAdd && <KanbanNewCard onSubmit={handleSubmit} />  }
           </KanbanColumn>
 
         <KanbanColumn bgColor={COLUMN_BG_COLORS.ongoing}  title="进行中"
