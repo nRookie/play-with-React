@@ -175,6 +175,7 @@ function App() {
       { title, status: new Date().toDateString()},
       ...currentDoneList
     ]);
+    setShowAdd(false);
   };
 
   const [ongoingList, setOngoingList] = useState ( [
