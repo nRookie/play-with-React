@@ -10,10 +10,9 @@ export default function KanbanNewCard({ onSubmit }) {
   };
   const handleKeyDown = (evt) => {
     if (evt.key === 'Enter') {
-      onSubmit(title);
+      const newCard = {title, status: new Date().toString()};
+      onSubmit(newCard);
     }
-    const newCard = {title, status: new Date().toString()};
-    onSubmit(newCard);
   };
 
   const inputElem = useRef(null);
