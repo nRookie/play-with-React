@@ -7,7 +7,7 @@ test('添加新卡片并移到进行中', async ({ page }) => {
 
   // 2. 用户添加新卡片
   // 2.1 点击“添加新卡片”
-  const todoListColumn = page.locator('section', { hasText: '待处理' });
+  const todoListColumn = page.locator('data-testid=kanban-column', {hasText: '待处理'});
   const showAddNewButton = todoListColumn.getByText(/添加新卡片/);
   await showAddNewButton.click();
 

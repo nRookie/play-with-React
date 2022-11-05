@@ -30,7 +30,8 @@ export default function KanbanColumn({
 
 
   return (
-    <section
+    <section 
+      data-testid='kanban-column'
       onDragStart={() => setIsDragSource(true)}
       onDragOver={(evt) => {
         evt.preventDefault();
